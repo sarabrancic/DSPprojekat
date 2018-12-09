@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<settings built="false" last_build_time="1544115533193">
+	<dependencies>
+		<source_file last_build_time="1544030855452" path="gen/src/projekat_overlay_odt.a">
+			<dependency>C:/CirrusDSP/crystal32/common/inc/ovly_version.h</dependency>
+		</source_file>
+	</dependencies>
+</settings>
