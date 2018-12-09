@@ -1,0 +1,244 @@
+1     	 0000					.extern _coefficients
+2     	 0000					.extern _gain2
+3     	 0000					.extern _input_gain
+4     	 0000					.extern _p
+5     	 0000					.extern _sampleBuffer
+6     	 0000					.extern _x_history1
+7     	 0000					.extern _x_history2
+8     	 0000					.extern _x_history3
+9     	 0000					.extern _y_history1
+10    	 0000					.extern _y_history2
+11    	 0000					.extern _y_history3
+12    	 0000					.extern _second_order_IIR
+13    	 0000					.public _p_function
+14    							 .code_ovly
+14     >> start of macro: .code_ovly
+1+    									seg_single , "CODE_OVLY", CODE
+1+     >> start of macro: seg_single
+1+    						  .if ( "" != "" ) & defined( ___SegStart_CODE_ )
+2+    						    segment
+3+    						  .else
+4+    						    segment "CODE_OVLY"
+5+    							.if "" != ""
+6+    						___SegStart_CODE_
+7+    							.endif
+8+    						  .endif
+9+    							#RememberSegmentType
+10+    >> end of macro: seg_single
+2+     >> end of macro: .code_ovly
+15    						
+16    	 0000				_p_function:			
+17    							#xmem[i7] = i7			
+18    							#i7 += 1			
+19    							#i7 = i7 + (0x1)			 
+20    	 0000				cline_90_0:			
+21    	 0000	 A0050000		i0 = (0) + (_sampleBuffer + 0)			
+22    	 0001	 B0440000		xmem[_p + 0] = i0			
+23    	 0002				cline_93_0:			 
+24    							#i0 = i7 - (0x1)			 
+25    	 0002	 00004DC0		a0 = 0			 
+26    							#xmem[i0] = a0h			
+27    	 0003	 81000075		do (0x10), label_end_92			
+28    	 0004				cline_95_0:			
+29    	 0004				label_begin_92:			
+30    	 0004	 B0040000		i0 = xmem[_p + 0]			
+31    	 0005	 80840000		x0 = ymem[_input_gain + 0]			
+32    	 0006	 81140000		x1 = xmem[i0]			
+33    	 0007	 A0050000		i0 = (0) + (_p)			
+34    	 0008	 B0140000		i0 = xmem[i0]			
+35    	 0009	 00002020		a0 = x1 * x0			
+36    	 000A	 88540000		xmem[i0] = a0			
+37    	 000B				cline_98_0:			
+38    	 000B	 B0040000		i0 = xmem[_p + 0]			 
+39    	 000C	 B1040000		i1 = xmem[_p + 0]			
+40    	 000D	 80050010		i0 = i0 + (0x10)			
+41    	 000E	 81150010		i1 = i1 + (0x10)			
+42    	 000F	 80140001		x0 = xmem[i1]			
+43    	 0010	 81840000		x1 = ymem[_input_gain + 0]			
+44    	 0011	 00002080		a0 = x0 * x1			
+45    	 0012	 88540000		xmem[i0] = a0			
+46    	 0013				cline_99_0:			
+47    	 0013	 B0040000		i0 = xmem[_p + 0]			
+48    	 0014	 B1040000		i1 = xmem[_p + 0]			
+49    	 0015	 80050020		i0 = i0 + (0x20)			
+50    	 0016	 81150010		i1 = i1 + (0x10)		
+51    	 0017	 88140001		a0 = xmem[i1]		
+52    	 0018	 98540000		xmem[i0] = a0h		
+53    	 0019				cline_104_0:			
+54    	 0019	 B0040000		i0 = xmem[_p + 0]			
+55    	 001A	 B1040000		i1 = xmem[_p + 0]		
+56    	 001B	 80050030		i0 = i0 + (0x30)		
+57    	 001C	 80140001		x0 = xmem[i1]			
+58    	 001D	 817A8000		x1 = (0x8000)		
+59    	 001E	 00002080		a0 = x0 * x1		
+60    	 001F	 88540000		xmem[i0] = a0	
+61    	 0020				cline_107_0:		
+62    	 0020	 B0040000		i0 = xmem[_p + 0]		
+63    	 0021	 B1040000		i1 = xmem[_p + 0]		
+64    	 0022	 80050040		i0 = i0 + (0x40)		
+65    	 0023	 81150020		i1 = i1 + (0x20)		
+66    	 0024	 80140001		x0 = xmem[i1]		
+67    	 0025	 817A8000		x1 = (0x8000)		
+68    	 0026	 00002080		a0 = x0 * x1	 
+69    	 0027	 88540000		xmem[i0] = a0		
+70    	 0028				cline_110_0:			
+71    	 0028	 884A0001		uhalfword(a0) = (0x1)		
+72    	 0029	 00004E80		a0 & a0		 
+73    	 002A	 8408006A		if (a == 0) jmp (else_0)			
+74    	 002B				cline_112_0:		
+75    	 002B	 B0040000		i0 = xmem[_p + 0]			
+76    	 002C	 B1040000		i1 = xmem[_p + 0]			
+77    	 002D	 80050010		i0 = i0 + (0x10)			
+78    	 002E	 81150010		i1 = i1 + (0x10)	
+79    	 002F	 80140001		x0 = xmem[i1]			
+80    	 0030	 81840000		x1 = ymem[_gain2 + 0]		
+81    	 0031	 00002080		a0 = x0 * x1		
+82    	 0032	 88540000		xmem[i0] = a0		
+83    	 0033				cline_115_0:			
+84    	 0033	 B0040000		i0 = xmem[_p + 0]		 
+85    	 0034	 B1040000		i1 = xmem[_p + 0]			
+86    	 0035	 80050050		i0 = i0 + (0x50)			
+87    	 0036	 81150020		i1 = i1 + (0x20)		
+88    	 0037	 80140001		x0 = xmem[i1]		
+89    	 0038	 81840000		x1 = ymem[_gain2 + 0]			
+90    	 0039	 00002080		a0 = x0 * x1			
+91    	 003A	 88540000		xmem[i0] = a0			
+92    	 003B				cline_118_0:			
+93    	 003B	 B0040000		i0 = xmem[_p + 0]		
+94    	 003C	 B1040000		i1 = xmem[_p + 0]			
+95    	 003D	 80050010		i0 = i0 + (0x10)			
+96    	 003E	 81150050		i1 = i1 + (0x50)			
+97    	 003F	 88140001		a0 = xmem[i1]			
+98    	 0040	 89140000		a1 = xmem[i0]			
+99    	 0041	 00004480		a0 = a1 + a0			
+100   	 0042	 98540000		xmem[i0] = a0h			
+101   	 0043				cline_121_0:			
+102   	 0043	 B0040000		i0 = xmem[_p + 0]			
+103   	 0044	 B1040000		i1 = xmem[_p + 0]			
+104   	 0045	 80050050		i0 = i0 + (0x50)			
+105   	 0046	 81150010		i1 = i1 + (0x10)			
+106   	 0047	 80140001		x0 = xmem[i1]			
+107   	 0048	 817A8000		x1 = (0x8000)			
+108   	 0049	 00002080		a0 = x0 * x1			
+109   	 004A	 88540000		xmem[i0] = a0			
+110   	 004B				cline_124_0:			
+111   	 004B	 B0040000		i0 = xmem[_p + 0]			
+112   	 004C	 A1050000		i1 = (0) + (_coefficients)			
+113   	 004D	 80050050		i0 = i0 + (0x50)			
+114   	 004E	 88140000		a0 = xmem[i0]			
+115   	 004F	 A4050000		i4 = (0) + (_x_history1)			
+116   	 0050	 A5050000		i5 = (0) + (_y_history1)			
+117   	 0051	 B1090030		i0 = i1			
+118   	 0052	 B8090031		i1 = i4			
+119   	 0053	 B9090038		i4 = i5			
+120   	 0054	 80880000		call (_second_order_IIR)			
+121   	 0055				cline_125_0:			
+122   	 0055	 B0040000		i0 = xmem[_p + 0]			
+123   	 0056	 A1050000		i1 = (0) + (_coefficients)			
+124   	 0057	 80050050		i0 = i0 + (0x50)			
+125   	 0058	 88140000		a0 = xmem[i0]			
+126   	 0059	 A4050000		i4 = (0) + (_x_history2)			
+127   	 005A	 A5050000		i5 = (0) + (_y_history2)			
+128   	 005B	 B1090030		i0 = i1			
+129   	 005C	 B8090031		i1 = i4			
+130   	 005D	 B9090038		i4 = i5			
+131   	 005E	 80880000		call (_second_order_IIR)			
+132   	 005F				cline_126_0:			
+133   	 005F	 B0040000		i0 = xmem[_p + 0]			
+134   	 0060	 A1050000		i1 = (0) + (_coefficients)			
+135   	 0061	 80050050		i0 = i0 + (0x50)			
+136   	 0062	 88140000		a0 = xmem[i0]			
+137   	 0063	 A4050000		i4 = (0) + (_x_history3)			
+138   	 0064	 A5050000		i5 = (0) + (_y_history3)			
+139   	 0065	 B1090030		i0 = i1			
+140   	 0066	 B8090031		i1 = i4			
+141   	 0067	 B9090038		i4 = i5			
+142   	 0068	 80880000		call (_second_order_IIR)			
+143   	 0069	 8008006E		jmp (endif_0)			
+144   	 006A				cline_127_0:			
+145   	 006A				else_0:			
+146   	 006A	 B0040000		i0 = xmem[_p + 0]			
+147   	 006B	 00004DC0		a0 = 0			
+148   	 006C	 80050010		i0 = i0 + (0x10)			
+149   	 006D	 98540000		xmem[i0] = a0h		
+150   	 006E				cline_131_0:			
+151   	 006E				init_latch_label_0:			
+152   	 006E				endif_0:			
+153   	 006E	 B0040000		i0 = xmem[_p + 0]			
+154   	 006F	 91750001		i1 = i7 - (0x1)			
+155   	 0070	 02087FFF		i0 += 1			
+156   	 0071	 B0440000		xmem[_p + 0] = i0			
+157   	 0072	 88140001		a0 = xmem[i1]			
+158   	 0073	 894A0001		uhalfword(a1) = (0x1)			
+159   	 0074	 90750001		i0 = i7 - (0x1)			
+160   	 0075				label_end_92:			
+161   	 0075	 98540000		xmem[i0] = a0h			
+162   	 0076				cline_95_1:			
+163   	 0076				for_end_0:			
+164   	 0076	 80080077		jmp (__epilogue_222)			
+165   	 0077				__epilogue_222:			
+166   							#i7 = i7 - (0x1)			 
+167   							#i7 -= 1			
+168   	 0077	 81880000		ret			 
+169   							 
+				 SYMBOL TABLE 
+
+    Name                                                                                    Type                  Value 
+
+_COMMON_INC_PATH_                                                               					 Define                 "C:/CirrusDSP/crystal32/common/inc/"
+_DSP_                                                                           					 Define                 "a"
+_LOCAL_INC_PATH_                                                                					 Define                 "inc/"
+_LOCAL_SRC_PATH_                                                                					 Define                 "src/"
+_MUI_VERSION_                                                                   					 Define                 "020000"
+_OVLY_                                                                          					 Define                 "standalone"
+_OVLY_REVISION_                                                                 					 Define                 "020000"
+_ROUTER_INC_PATH_                                                               					 Define                 "rom_inc/"
+_SLOT_                                                                          					 Define                 "0"
+_TARGET_FAMILY_                                                                 					 Define                 "crystal32"
+_TOOLS_VERSION_                                                                 					 Define                 "0x0701"
+_VERSION_                                                                       					 Define                 "00"
+__CASM_VER__                                                                    			  Unused Variable		        0 (701H)
+__epilogue_222                                                                  			         Relocatable         p_function_GEN_0000:0077H
+_coefficients                                                                   					 External   
+_gain2                                                                          					 External   
+_input_gain                                                                     					 External   
+_p                                                                              					 External   
+_p_function                                                                     			  Public Relocatable       p_function_GEN_0000:0000H
+_sampleBuffer                                                                   					 External   
+_second_order_IIR                                                               					 External   
+_x_history1                                                                     					 External   
+_x_history2                                                                     					 External   
+_x_history3                                                                     					 External   
+_y_history1                                                                     					 External   
+_y_history2                                                                     					 External   
+_y_history3                                                                     					 External   
+cline_104_0                                                                     			  Unused Relocatable        p_function_GEN_0000:0019H
+cline_107_0                                                                     			  Unused Relocatable        p_function_GEN_0000:0020H
+cline_110_0                                                                     			  Unused Relocatable        p_function_GEN_0000:0028H
+cline_112_0                                                                     			  Unused Relocatable        p_function_GEN_0000:002BH
+cline_115_0                                                                     			  Unused Relocatable        p_function_GEN_0000:0033H
+cline_118_0                                                                     			  Unused Relocatable        p_function_GEN_0000:003BH
+cline_121_0                                                                     			  Unused Relocatable        p_function_GEN_0000:0043H
+cline_124_0                                                                     			  Unused Relocatable        p_function_GEN_0000:004BH
+cline_125_0                                                                     			  Unused Relocatable        p_function_GEN_0000:0055H
+cline_126_0                                                                     			  Unused Relocatable        p_function_GEN_0000:005FH
+cline_127_0                                                                     			  Unused Relocatable        p_function_GEN_0000:006AH
+cline_131_0                                                                     			  Unused Relocatable        p_function_GEN_0000:006EH
+cline_90_0                                                                      			  Unused Relocatable        p_function_GEN_0000:0000H
+cline_93_0                                                                      			  Unused Relocatable        p_function_GEN_0000:0002H
+cline_95_0                                                                      			  Unused Relocatable        p_function_GEN_0000:0004H
+cline_95_1                                                                      			  Unused Relocatable        p_function_GEN_0000:0076H
+cline_98_0                                                                      			  Unused Relocatable        p_function_GEN_0000:000BH
+cline_99_0                                                                      			  Unused Relocatable        p_function_GEN_0000:0013H
+else_0                                                                          			         Relocatable         p_function_GEN_0000:006AH
+endif_0                                                                         			         Relocatable         p_function_GEN_0000:006EH
+for_end_0                                                                       			  Unused Relocatable        p_function_GEN_0000:0076H
+init_latch_label_0                                                              			  Unused Relocatable        p_function_GEN_0000:006EH
+label_begin_92                                                                  			  Unused Relocatable        p_function_GEN_0000:0004H
+label_end_92                                                                    			         Relocatable         p_function_GEN_0000:0075H
+
+	       SEGMENTS:
+
+Size			  Name										 Class
+0000H	 __INIT                                  			 CODE                                    
+0078H	 p_function_GEN_0000                     			 CODE_OVLY                               

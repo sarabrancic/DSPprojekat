@@ -1,101 +1,111 @@
+/*MODEL0
+
+output_mode (default)= 2_2_0 = 0   3_2_1 = 1
+
+l   -> 0
+c   -> 1
+r   -> 2
+ls  -> 3
+rs  -> 4
+lfe -> 5
+*/
+
 #include <stdlib.h>
 #include <string.h>
 #include "WAVheader.h"
-#include "iir.c"
 
+#define MODE 0
 #define BLOCK_SIZE 16
 #define MAX_NUM_CHANNEL 8
-#define N_TAP 4
-#define MAX_LENGTH 4000
+#define CHANNEL_NUM 6
 
 #define dB_2 0.794328
 #define dB_4 0.630957
 
 double sampleBuffer[MAX_NUM_CHANNEL][BLOCK_SIZE];
 
-/*typedef struct  
-{
-	double* pBuff;
-	int bufferLength;
-	int writeIndex;
-	int readIndex[N_TAP];
-	int delay[N_TAP];
-	double input_gain;
-	double tap_gain[N_TAP];
-	int n_tap;
-} State;
-*/
-double coeff[][6]={0};
+//LPF 800Hz
+double coefficients[]={
+					0.00252752227776842360,
+					0.00505504455553684730,
+					0.00252752227776842360,
+					1.00000000000000000000,
+					-1.85214648539593640000,
+					0.86234862603008133000
+					};
 
-double x_history7[] = {0, 0, 0, 0, 0, 0};
-double y_history7[] = {0, 0, 0, 0, 0, 0};
+double x_history1[] = {0, 0};
+double y_history1[] = {0, 0};
 
-double XTempHistory[] = {0, 0};	
-double YTempHistory[] = {0, 0};
+double x_history2[] = {0, 0};
+double y_history2[] = {0, 0};
 
-/*void p_init(State* state, double* buffer, const int bufLen, 
-	const int delay[], const double input_gain, const  double tap_gain[], const int n_tap)
-{
-	int i;
-	for (i = 0; i < bufLen; i++)
-	{
-		buffer[i] = 0.0;
-	}
-	state->pBuff = buffer;
-	state->bufferLength = bufLen;
-	state->writeIndex = bufLen-1;
-	state->input_gain = input_gain;
-	state->n_tap = n_tap;
-	for(i = 0; i< n_tap; i++)
-	{
-		state->delay[i] = delay[i];
-		state->readIndex[i] = bufLen - 1 - delay[i];
-		state->tap_gain[i] = tap_gain[i];
-	}
-	
+double x_history3[] = {0, 0};
+double y_history3[] = {0, 0};
+
+double second_order_IIR(double input, double* coefficients, double* x_history, double* y_history) {
+    double output = 0;
+
+    output += coefficients[0] * input;        /* A0 * x(n)   */
+    output += coefficients[1] * x_history[0]; /* A1 * x(n-1) */
+    output += coefficients[2] * x_history[1]; /* A2 * x(n-2) */
+    output -= coefficients[4] * y_history[0]; /* B1 * y(n-1) */
+    output -= coefficients[5] * y_history[1]; /* B2 * y(n-2) */
+
+    
+    y_history[1] = y_history[0];    /* y(n-2) = y(n-1) */
+    y_history[0] = output;			/* y(n-1) = y(n)   */
+    x_history[1] = x_history[0];    /* x(n-2) = x(n-1) */
+    x_history[0] = input;           /* x(n-1) = x(n)   */
+
+    return output;
 }
-*/
-//left surround 3  ok
-//left 0
-//center 1
-//lfe 7
-//right 2
-//right surround 4
 
 void p_function(){
+
 	int i;
-	double temp[16];
+
 	for(i = 0; i < BLOCK_SIZE; i++)
 	{	
-		//left
+		//first step
 		sampleBuffer[0][i]*=dB_4;
+		sampleBuffer[1][i]*=dB_4;
+		
+		//left DONE
 
 		//right
-		sampleBuffer[2][i]*=dB_4;
-
-		//center -not final 
-		sampleBuffer[1][i]*=dB_2;
+		sampleBuffer[2][i] = sampleBuffer[1][i];
 
 		//left surround
 		sampleBuffer[3][i]=sampleBuffer[0][i]*(-1);
 
 		//right surround
 		sampleBuffer[4][i] = sampleBuffer[2][i]*(-1);
+		
+		if(MODE == 1){
 
-		//lfe -not final
-		sampleBuffer[7][i] = sampleBuffer[2][i]*dB_2;
+			//center -not final 
+			sampleBuffer[1][i]*=dB_2;
 
-		//center final
-		temp[i] = sampleBuffer[1][i];
-		sampleBuffer[1][i] += sampleBuffer[7][i];
+			//lfe -not final
+			sampleBuffer[5][i] = sampleBuffer[2][i]*dB_2;
 
-		//lfe final
-		sampleBuffer[7][i] = temp[i] - sampleBuffer[7][i];
-	//	Nth_order_IIR(sampleBuffer[7][i], coeff, x_history7[], y_history7[], 6);
+			//center final
+			sampleBuffer[1][i] += sampleBuffer[5][i];
 
+			//lfe final
+			sampleBuffer[5][i] = sampleBuffer[1][i] * (-1);
+			second_order_IIR(sampleBuffer[5][i], coefficients, x_history1,  y_history1);
+			second_order_IIR(sampleBuffer[5][i], coefficients, x_history2,  y_history2);
+			second_order_IIR(sampleBuffer[5][i], coefficients, x_history3,  y_history3);
+
+		}
+		else
+		{	//delete center and lfe
+			sampleBuffer[1][i] = 0;
+			sampleBuffer[5][i] = 0;
+		}
 	}
-
-	
 
 };
 
@@ -107,16 +117,6 @@ int main(int argc, char* argv[])
 	char WavOutputName[256];
 	WAV_HEADER inputWAVhdr,outputWAVhdr;	
 
-
-	// Multitap delay state and initialization constants
-	//-------------------------------------------------
-/*	State state;
-	double buffer[MAX_LENGTH];
-	const int initial_delay[N_TAP] = {1024, 1536, 2560, 3072};
-	const double initial_gain[N_TAP] ={0.25, 0.125, 0.0625, 0.0625};
-	const double initial_input_gain = 0.5;
-	//-------------------------------------------------
-*/
 	// Init channel buffers
 	for(int i=0; i<MAX_NUM_CHANNEL; i++)
 		memset(&sampleBuffer[i],0,BLOCK_SIZE);
@@ -137,8 +137,7 @@ int main(int argc, char* argv[])
 	// Set up output WAV header
 	//-------------------------------------------------	
 	outputWAVhdr = inputWAVhdr;
-	//outputWAVhdr.fmt.NumChannels = inputWAVhdr.fmt.NumChannels; // change number of channels
-	outputWAVhdr.fmt.NumChannels = 6;
+	outputWAVhdr.fmt.NumChannels = CHANNEL_NUM;
 
 	int oneChannelSubChunk2Size = inputWAVhdr.data.SubChunk2Size/inputWAVhdr.fmt.NumChannels;
 	int oneChannelByteRate = inputWAVhdr.fmt.ByteRate/inputWAVhdr.fmt.NumChannels;
@@ -152,11 +151,6 @@ int main(int argc, char* argv[])
 	// Write output WAV header to file
 	//-------------------------------------------------
 	WriteWavHeader(wav_out,outputWAVhdr);
-
-	
-	// Initialize echo 
-//	p_init(&state, buffer, MAX_LENGTH, initial_delay, initial_input_gain, initial_gain, N_TAP);
-    
 
 	// Processing loop
 	//-------------------------------------------------	
@@ -179,9 +173,11 @@ int main(int argc, char* argv[])
 					sampleBuffer[k][j] = sample / SAMPLE_SCALE;				// scale sample to 1.0/-1.0 range		
 				}
 			}
-			
+
+			// process function
+			//--------------------------
 			p_function();
-	
+			//--------------------------
 
 			for(int j=0; j<BLOCK_SIZE; j++)
 			{

@@ -1,34 +1,41 @@
-﻿Build started 29.11.2018. 20:54:01.
-     1>Project "D:\aadsp2\projekat\resenje\projekat_model0\projekat_model0\projekat_model0.vcxproj" on node 2 (build target(s)).
-     1>InitializeBuildStatus:
-         Touching "Debug\projekat_model0.unsuccessfulbuild".
+﻿Build started 5.12.2018 13:54:14.
+     1>Project "D:\ra150\projekat\resenje\projekat_model0\projekat_model0\projekat_model0.vcxproj" on node 3 (rebuild target(s)).
+     1>_PrepareForClean:
+         Deleting file "Debug\projekat_model0.lastbuildstate".
+       InitializeBuildStatus:
+         Creating "Debug\projekat_model0.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         All outputs are up-to-date.
-         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp WAVheader.cpp
+         WAVheader.cpp
+     1>d:\ra150\projekat\resenje\projekat_model0\projekat_model0\wavheader.cpp(84): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(234) : see declaration of 'fopen'
          main.cpp
-     1>d:\aadsp2\projekat\resenje\projekat_model0\projekat_model0\main.cpp(126): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files\microsoft visual studio 10.0\vc\include\string.h(105) : see declaration of 'strcpy'
-     1>d:\aadsp2\projekat\resenje\projekat_model0\projekat_model0\main.cpp(128): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files\microsoft visual studio 10.0\vc\include\string.h(105) : see declaration of 'strcpy'
-     1>d:\aadsp2\projekat\resenje\projekat_model0\projekat_model0\main.cpp(190): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>d:\ra150\projekat\resenje\projekat_model0\projekat_model0\main.cpp(126): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : see declaration of 'strcpy'
+     1>d:\ra150\projekat\resenje\projekat_model0\projekat_model0\main.cpp(128): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : see declaration of 'strcpy'
+     1>d:\ra150\projekat\resenje\projekat_model0\projekat_model0\main.cpp(186): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+         Generating Code...
        ManifestResourceCompile:
-         All outputs are up-to-date.
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\projekat_model0.exe.embed.manifest.res" Debug\projekat_model0_manifest.rc 
        Link:
-         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\aadsp2\projekat\resenje\projekat_model0\Debug\projekat_model0.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\projekat_model0.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"D:\aadsp2\projekat\resenje\projekat_model0\Debug\projekat_model0.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\aadsp2\projekat\resenje\projekat_model0\Debug\projekat_model0.lib" /MACHINE:X86 Debug\projekat_model0.exe.embed.manifest.res
-         Debug\iir.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\ra150\projekat\resenje\projekat_model0\Debug\projekat_model0.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\projekat_model0.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"D:\ra150\projekat\resenje\projekat_model0\Debug\projekat_model0.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\ra150\projekat\resenje\projekat_model0\Debug\projekat_model0.lib" /MACHINE:X86 Debug\projekat_model0.exe.embed.manifest.res
          Debug\main.obj
          Debug\WAVheader.obj
        Manifest:
-         C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\projekat_model0.exe.embed.manifest" /manifest Debug\projekat_model0.exe.intermediate.manifest
-         All outputs are up-to-date.
+         Deleting file "Debug\projekat_model0.exe.embed.manifest".
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\projekat_model0.exe.embed.manifest" /manifest Debug\projekat_model0.exe.intermediate.manifest
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\projekat_model0.exe.embed.manifest.res" Debug\projekat_model0_manifest.rc 
        LinkEmbedManifest:
-         All outputs are up-to-date.
-         projekat_model0.vcxproj -> D:\aadsp2\projekat\resenje\projekat_model0\Debug\projekat_model0.exe
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\ra150\projekat\resenje\projekat_model0\Debug\projekat_model0.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\projekat_model0.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"D:\ra150\projekat\resenje\projekat_model0\Debug\projekat_model0.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\ra150\projekat\resenje\projekat_model0\Debug\projekat_model0.lib" /MACHINE:X86 Debug\projekat_model0.exe.embed.manifest.res
+         Debug\main.obj
+         Debug\WAVheader.obj
+         projekat_model0.vcxproj -> D:\ra150\projekat\resenje\projekat_model0\Debug\projekat_model0.exe
        FinalizeBuildStatus:
          Deleting file "Debug\projekat_model0.unsuccessfulbuild".
          Touching "Debug\projekat_model0.lastbuildstate".
-     1>Done Building Project "D:\aadsp2\projekat\resenje\projekat_model0\projekat_model0\projekat_model0.vcxproj" (build target(s)).
+     1>Done Building Project "D:\ra150\projekat\resenje\projekat_model0\projekat_model0\projekat_model0.vcxproj" (rebuild target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:17.53
+Time Elapsed 00:00:01.99

@@ -1,0 +1,169 @@
+	.extern _coefficients
+	.extern _gain2
+	.extern _input_gain
+	.extern _p
+	.extern _sampleBuffer
+	.extern _x_history1
+	.extern _x_history2
+	.extern _x_history3
+	.extern _y_history1
+	.extern _y_history2
+	.extern _y_history3
+	.extern _second_order_IIR
+	.public _p_function
+	 .code_ovly
+
+_p_function:			
+	#xmem[i7] = i7			
+	#i7 += 1			
+	#i7 = i7 + (0x1)			 
+cline_90_0:			
+	i0 = (0) + (_sampleBuffer + 0)			
+	xmem[_p + 0] = i0			
+cline_93_0:			 
+	#i0 = i7 - (0x1)			 
+	a0 = 0			 
+	#xmem[i0] = a0h			
+	do (0x10), label_end_92			
+cline_95_0:			
+label_begin_92:			
+	i0 = xmem[_p + 0]			
+	x0 = ymem[_input_gain + 0]			
+	x1 = xmem[i0]			
+	i0 = (0) + (_p)			
+	i0 = xmem[i0]			
+	a0 = x1 * x0			
+	xmem[i0] = a0			
+cline_98_0:			
+	i0 = xmem[_p + 0]			 
+	i1 = xmem[_p + 0]			
+	i0 = i0 + (0x10)			
+	i1 = i1 + (0x10)			
+	x0 = xmem[i1]			
+	x1 = ymem[_input_gain + 0]			
+	a0 = x0 * x1			
+	xmem[i0] = a0			
+cline_99_0:			
+	i0 = xmem[_p + 0]			
+	i1 = xmem[_p + 0]			
+	i0 = i0 + (0x20)			
+	i1 = i1 + (0x10)		
+	a0 = xmem[i1]		
+	xmem[i0] = a0h		
+cline_104_0:			
+	i0 = xmem[_p + 0]			
+	i1 = xmem[_p + 0]		
+	i0 = i0 + (0x30)		
+	x0 = xmem[i1]			
+	x1 = (0x8000)		
+	a0 = x0 * x1		
+	xmem[i0] = a0	
+cline_107_0:		
+	i0 = xmem[_p + 0]		
+	i1 = xmem[_p + 0]		
+	i0 = i0 + (0x40)		
+	i1 = i1 + (0x20)		
+	x0 = xmem[i1]		
+	x1 = (0x8000)		
+	a0 = x0 * x1	 
+	xmem[i0] = a0		
+cline_110_0:			
+	uhalfword(a0) = (0x1)		
+	a0 & a0		 
+	if (a == 0) jmp (else_0)			
+cline_112_0:		
+	i0 = xmem[_p + 0]			
+	i1 = xmem[_p + 0]			
+	i0 = i0 + (0x10)			
+	i1 = i1 + (0x10)	
+	x0 = xmem[i1]			
+	x1 = ymem[_gain2 + 0]		
+	a0 = x0 * x1		
+	xmem[i0] = a0		
+cline_115_0:			
+	i0 = xmem[_p + 0]		 
+	i1 = xmem[_p + 0]			
+	i0 = i0 + (0x50)			
+	i1 = i1 + (0x20)		
+	x0 = xmem[i1]		
+	x1 = ymem[_gain2 + 0]			
+	a0 = x0 * x1			
+	xmem[i0] = a0			
+cline_118_0:			
+	i0 = xmem[_p + 0]		
+	i1 = xmem[_p + 0]			
+	i0 = i0 + (0x10)			
+	i1 = i1 + (0x50)			
+	a0 = xmem[i1]			
+	a1 = xmem[i0]			
+	a0 = a1 + a0			
+	xmem[i0] = a0h			
+cline_121_0:			
+	i0 = xmem[_p + 0]			
+	i1 = xmem[_p + 0]			
+	i0 = i0 + (0x50)			
+	i1 = i1 + (0x10)			
+	x0 = xmem[i1]			
+	x1 = (0x8000)			
+	a0 = x0 * x1			
+	xmem[i0] = a0			
+cline_124_0:			
+	i0 = xmem[_p + 0]			
+	i1 = (0) + (_coefficients)			
+	i0 = i0 + (0x50)			
+	a0 = xmem[i0]			
+	i4 = (0) + (_x_history1)			
+	i5 = (0) + (_y_history1)			
+	i0 = i1			
+	i1 = i4			
+	i4 = i5			
+	call (_second_order_IIR)			
+cline_125_0:			
+	i0 = xmem[_p + 0]			
+	i1 = (0) + (_coefficients)			
+	i0 = i0 + (0x50)			
+	a0 = xmem[i0]			
+	i4 = (0) + (_x_history2)			
+	i5 = (0) + (_y_history2)			
+	i0 = i1			
+	i1 = i4			
+	i4 = i5			
+	call (_second_order_IIR)			
+cline_126_0:			
+	i0 = xmem[_p + 0]			
+	i1 = (0) + (_coefficients)			
+	i0 = i0 + (0x50)			
+	a0 = xmem[i0]			
+	i4 = (0) + (_x_history3)			
+	i5 = (0) + (_y_history3)			
+	i0 = i1			
+	i1 = i4			
+	i4 = i5			
+	call (_second_order_IIR)			
+	jmp (endif_0)			
+cline_127_0:			
+else_0:			
+	i0 = xmem[_p + 0]			
+	a0 = 0			
+	i0 = i0 + (0x10)			
+	xmem[i0] = a0h		
+cline_131_0:			
+init_latch_label_0:			
+endif_0:			
+	i0 = xmem[_p + 0]			
+	i1 = i7 - (0x1)			
+	i0 += 1			
+	xmem[_p + 0] = i0			
+	a0 = xmem[i1]			
+	uhalfword(a1) = (0x1)			
+	i0 = i7 - (0x1)			
+label_end_92:			
+	xmem[i0] = a0h			
+cline_95_1:			
+for_end_0:			
+	jmp (__epilogue_222)			
+__epilogue_222:			
+	#i7 = i7 - (0x1)			 
+	#i7 -= 1			
+	ret			 
+	 

@@ -74,7 +74,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="iir.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="WAVheader.cpp" />
   </ItemGroup>

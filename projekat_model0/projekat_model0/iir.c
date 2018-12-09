@@ -1,5 +1,4 @@
 
-
 /**************************************
  * IIR filtar drugog reda
  *
@@ -30,7 +29,6 @@ double second_order_IIR(double input, double* coefficients, double* x_history, d
     return output;
 
 }
-
 /**************************************
  * IIR filtar N-tog reda
  *
